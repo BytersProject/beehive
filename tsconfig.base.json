@@ -1,9 +1,11 @@
 {
 	"extends": "@quantumly/eslint-config",
 	"compilerOptions": {
-		"useDefineForClassFields": true,
+		"useDefineForClassFields": false,
 		"declaration": true,
 		"declarationMap": true,
-		"removeComments": false
+		"removeComments": false,
+		"emitDecoratorMetadata": true,
+		"target": "ES2017"
 	}
 }
