@@ -56,8 +56,17 @@ export class CommandManager implements Component {
 	protected async handleMessage(message: Message) {
 		const prefixes = await this.beehive.fetchPrefix(message);
 		const parsedPrefix = this.getPrefix(message.content, prefixes);
+		if (parsedPrefix === null) return null;
 
-		console.log(parsedPrefix);
+		const prefixLess = message.content.slice(parsedPrefix.length).trim();
+		const spaceIndex = prefixLess.indexOf(' ');
+		const name = spaceIndex === -1 ? prefixLess : prefixLess.slice(0, spaceIndex);
+		// TODO(QuantumlyTangled): Handle no found name
+
+		const command = this.findCommand(name);
+		// TODO(QuantumlyTangled): Handle no found command
+
+		console.log(command?.name);
 	}
 
 	private getPrefix(content: string, prefixes: readonly string[] | string | null): string | null {
