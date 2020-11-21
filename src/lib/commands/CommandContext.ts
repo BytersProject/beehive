@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Message } from 'hiven/Collections/Message';
-import { Args } from 'lexure';
+import { Args } from '../arguments/Args';
 import { Beehive } from '../Beehive';
 import Hiven from '../Hiven';
 import { Command } from './Command';

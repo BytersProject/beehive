@@ -1,6 +1,7 @@
 import { FSComponentLoader, Plugin, PluginAPI } from '@ayanaware/bento';
 import { Message } from 'hiven/Collections/Message';
 import * as path from 'path';
+import ArgumentManager from './arguments';
 import { BeehiveVariable } from './BeehiveVariable';
 import CommandManager from './commands';
 import Hiven from './Hiven';
@@ -49,8 +50,15 @@ export class Beehive implements Plugin {
 		const hiven: Hiven = await (this.fsLoader as any).createInstance(path.resolve(__dirname, 'Hiven'));
 		await this.api.bento.addComponent(hiven);
 
+		const argumentManager: ArgumentManager = await (this.fsLoader as any).createInstance(path.resolve(__dirname, 'arguments'));
+		await this.api.bento.addComponent(argumentManager);
+
 		const commandManager: CommandManager = await (this.fsLoader as any).createInstance(path.resolve(__dirname, 'commands'));
 		await this.api.bento.addComponent(commandManager);
+
+		const loadBuiltinArguments = this.api.getVariable({ 'name': BeehiveVariable.BEEHIVE_BUILTIN_ARGUMENTS, 'default': true });
+		if (loadBuiltinArguments) return this.api.loadComponents(this.fsLoader, __dirname, 'arguments', 'builtin');
+
 	}
 
 }

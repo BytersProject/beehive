@@ -1,5 +1,8 @@
-import { Component, ComponentAPI, Entity } from '@ayanaware/bento';
-import { Args, Lexer, Parser } from 'lexure';
+import { Component, ComponentAPI, Entity, Inject } from '@ayanaware/bento';
+import { Message } from 'hiven/Collections/Message';
+import * as Lexure from 'lexure';
+import { Args } from '../arguments/Args';
+import { ArgumentManager } from '../arguments/ArgumentManager';
 import { Awaited } from '../utils/Types';
 import { CommandContext } from './CommandContext';
 import { CommandManager } from './CommandManager';
@@ -11,9 +14,11 @@ export abstract class Command implements Component {
 
 	public api!: ComponentAPI;
 	public parent: Entity = CommandManager;
-	public abstract definition: CommandDefinition;
+	public definition?: CommandDefinition;
 
-	private lexer = new Lexer();
+	@Inject() public argumentManager!: ArgumentManager;
+
+	private lexer = new Lexure.Lexer();
 
 	public constructor() {
 		this.lexer.setQuotes([
@@ -23,10 +28,10 @@ export abstract class Command implements Component {
 		]);
 	}
 
-	public preParse(parameters: string): Awaited<Args> {
-		const parser = new Parser(this.lexer.setInput(parameters).lex());
-		const args = new Args(parser.parse());
-		return args;
+	public preParse(message: Message, parameters: string): Awaited<Args> {
+		const parser = new Lexure.Parser(this.lexer.setInput(parameters).lex());
+		const args = new Lexure.Args(parser.parse());
+		return new Args(message, this, args);
 	}
 
 	public abstract run(ctx: CommandContext, args: Args): Awaited<any>;
