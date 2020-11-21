@@ -68,8 +68,12 @@ export class CommandManager implements Component {
 		// TODO(QuantumlyTangled): Handle no found command
 		if (command === null) return null;
 
-		const ctx = new CommandContext(command, message);
-		await command?.run(ctx);
+		const parameters = spaceIndex === -1 ? '' : prefixLess.substr(spaceIndex + 1).trim();
+
+		const args = await command.preParse(parameters);
+
+		const ctx = new CommandContext(command, message, args);
+		await command.run(ctx, args);
 	}
 
 	private getPrefix(content: string, prefixes: readonly string[] | string | null): string | null {
