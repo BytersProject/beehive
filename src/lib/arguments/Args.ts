@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
+/*
+	This file has been adopted from sapphire-project/framework (https://github.com/sapphire-project/framework/blob/677b95355c6fe23ea632b127af837a7a9af4077d/src/lib/utils/Args.ts)
+	Copyright © 2018-2020 The Sapphire Project and its contributors
+*/
+
 import { Message } from 'hiven/Collections/Message';
 import type * as Lexure from 'lexure';
 import { Command } from '../commands';
@@ -7,7 +13,6 @@ import { UserError } from '../errors/UserError';
 import { IArgument } from './Argument';
 import { ArgType, ArgumentContext } from './interfaces';
 import { err, isErr, isOk, ok, Ok, Result } from './Result';
-
 
 export class Args {
 
