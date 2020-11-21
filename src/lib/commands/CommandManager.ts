@@ -3,6 +3,7 @@ import { Component, ComponentAPI, Inject, PluginReference, Subscribe } from '@ay
 import { Message } from 'hiven/Collections/Message';
 import { Beehive } from '../Beehive';
 import Hiven, { HivenEvents } from '../Hiven';
+import { CommandContext } from './CommandContext';
 import { Command } from './interfaces';
 
 export class CommandManager implements Component {
@@ -65,8 +66,10 @@ export class CommandManager implements Component {
 
 		const command = this.findCommand(name);
 		// TODO(QuantumlyTangled): Handle no found command
+		if (command === null) return null;
 
-		console.log(command?.name);
+		const ctx = new CommandContext(command, message);
+		await command?.run(ctx);
 	}
 
 	private getPrefix(content: string, prefixes: readonly string[] | string | null): string | null {
