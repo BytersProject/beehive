@@ -12,7 +12,7 @@ export class Hiven implements Component {
 
 	public client!: Client;
 
-	@Inject(Beehive) private beehive!: Beehive;
+	@Inject() private beehive!: Beehive;
 
 	public async onLoad() {
 		await this.connect();

@@ -4,4 +4,7 @@ import { Command } from '../../commands';
 export interface ArgumentContext extends Record<PropertyKey, unknown> {
 	message: Message;
 	command: Command;
+
+	minimum?: number;
+	maximum?: number;
 }
