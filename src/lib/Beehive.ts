@@ -13,7 +13,7 @@ export interface BeehivePrefixHook {
 }
 
 export interface ClientOptions {
-	type?: 'bot';
+	type?: 'bot' | 'user';
 	fetchPrefix?: BeehivePrefixHook;
 }
 
@@ -44,7 +44,7 @@ export class Beehive implements Plugin {
 
 		this.fetchPrefix
 			= this.clientOptions.fetchPrefix
-				?? (() => this.api.getVariable({ 'name': BeehiveVariable.DEFAULT_PREFIX, 'default': null }));
+				?? (() => this.api.getVariable({ 'name': BeehiveVariable.BEEHIVE_DEFAULT_PREFIX, 'default': null }));
 
 		const hiven: Hiven = await (this.fsLoader as any).createInstance(path.resolve(__dirname, 'Hiven'));
 		await this.api.bento.addComponent(hiven);
