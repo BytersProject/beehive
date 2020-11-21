@@ -2,7 +2,7 @@
 import { Message } from 'hiven/Collections/Message';
 import { Beehive } from '../Beehive';
 import Hiven from '../Hiven';
-import { Command } from './interfaces';
+import { Command } from './Command';
 
 export class CommandContext {
 

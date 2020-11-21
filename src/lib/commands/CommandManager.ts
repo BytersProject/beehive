@@ -4,7 +4,7 @@ import { Message } from 'hiven/Collections/Message';
 import { Beehive } from '../Beehive';
 import Hiven, { HivenEvents } from '../Hiven';
 import { CommandContext } from './CommandContext';
-import { Command } from './interfaces';
+import { Command } from './Command';
 
 export class CommandManager implements Component {
 
