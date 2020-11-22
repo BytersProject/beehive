@@ -4,4 +4,5 @@ export * from './arguments';
 export * from './commands';
 export * from './errors';
 export * from './Hiven';
+export * from './utils';
 export * from './BeehiveVariable';
