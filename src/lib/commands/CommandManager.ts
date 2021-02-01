@@ -5,6 +5,7 @@ import { Beehive } from '../Beehive';
 import Hiven, { HivenEvents } from '../Hiven';
 import { CommandContext } from './CommandContext';
 import { Command } from './Command';
+import { BeehiveVariable } from '../BeehiveVariable';
 
 export class CommandManager implements Component {
 
@@ -64,7 +65,11 @@ export class CommandManager implements Component {
 		const name = spaceIndex === -1 ? prefixLess : prefixLess.slice(0, spaceIndex);
 		// TODO(QuantumlyTangled): Handle no found name
 
-		const command = this.findCommand(name);
+		const command = this.findCommand(
+			this.api.getVariable({ 'name': BeehiveVariable.BEEHIVE_LOWERCASE_COMMANDS, 'default': false })
+				? name.toLowerCase()
+				: name
+		);
 		// TODO(QuantumlyTangled): Handle no found command
 		if (command === null) return null;
 
