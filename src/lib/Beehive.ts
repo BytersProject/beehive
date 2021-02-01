@@ -1,21 +1,21 @@
 import { FSComponentLoader, Plugin, PluginAPI } from '@ayanaware/bento';
-import { Message } from 'hiven/Collections/Message';
 import * as path from 'path';
 import ArgumentManager from './arguments';
 import { BeehiveVariable } from './BeehiveVariable';
 import CommandManager from './commands';
 import Hiven from './Hiven';
-import { Awaited } from './utils/Types';
+import { BeehiveHook } from './utils/Types';
 
 export type BeehivePrefix = string | readonly string[] | null;
+export type BeehiveLanguage = string | null;
 
-export interface BeehivePrefixHook {
-	(message: Message): Awaited<BeehivePrefix>;
-}
+export type BeehivePrefixHook = BeehiveHook<BeehivePrefix>;
+export type BeehiveLanguageHook = BeehiveHook<BeehiveLanguage>;
 
 export interface ClientOptions {
 	type?: 'bot' | 'user';
 	fetchPrefix?: BeehivePrefixHook;
+	fetchLanguage?: BeehiveLanguageHook;
 }
 
 export class Beehive implements Plugin {
@@ -28,6 +28,7 @@ export class Beehive implements Plugin {
 	public fsLoader: FSComponentLoader = new FSComponentLoader();
 
 	public fetchPrefix!: BeehivePrefixHook;
+	public fetchLanguage!: BeehiveLanguageHook;
 
 	public constructor(clientOptions?: ClientOptions) {
 		this.clientOptions = clientOptions ?? {};
@@ -46,6 +47,9 @@ export class Beehive implements Plugin {
 		this.fetchPrefix
 			= this.clientOptions.fetchPrefix
 				?? (() => this.api.getVariable({ 'name': BeehiveVariable.BEEHIVE_DEFAULT_PREFIX, 'default': null }));
+		this.fetchLanguage
+			= this.clientOptions.fetchLanguage
+				?? (() => this.api.getVariable({ 'name': BeehiveVariable.BEEHIVE_DEFAULT_LANGUAGE, 'default': 'en-US' }));
 
 		const hiven: Hiven = await (this.fsLoader as any).createInstance(path.resolve(__dirname, 'Hiven'));
 		await this.api.bento.addComponent(hiven);
