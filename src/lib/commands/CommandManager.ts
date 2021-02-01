@@ -25,7 +25,6 @@ export class CommandManager implements Component {
 		}
 	}
 
-	// TODO(QuantumlyTangled): Make command name handling case insensitive
 	public findCommand(commandAlias: string): Command|null {
 		const alias = this.aliases.get(commandAlias);
 		if (!alias) return null;
@@ -36,7 +35,6 @@ export class CommandManager implements Component {
 		return command;
 	}
 
-	// TODO(QuantumlyTangled): Make command name handling case insensitive
 	protected addCommand(command: Command) {
 		if (this.commands.has(command.name)) throw new Error('Command already exists with this name.');
 
@@ -55,7 +53,6 @@ export class CommandManager implements Component {
 		this.commands.set(command.name, command);
 	}
 
-	// TODO(QuantumlyTangled): Make command name handling case insensitive
 	@Subscribe(Hiven, HivenEvents.Message)
 	protected async handleMessage(message: Message) {
 		const prefixes = await this.beehive.fetchPrefix(message);
