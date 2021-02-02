@@ -9,8 +9,8 @@ export class ArgumentManager implements Component {
 	public api!: ComponentAPI;
 	public parent: PluginReference = Beehive;
 
-	private readonly arguments: Map<string, Argument> = new Map();
-	private readonly aliases: Map<string, string> = new Map();
+	public readonly arguments: Map<string, Argument> = new Map();
+	public readonly aliases: Map<string, string> = new Map();
 
 	public async onChildLoad(entity: Argument) {
 		try {
