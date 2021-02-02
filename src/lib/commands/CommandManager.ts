@@ -13,10 +13,10 @@ export class CommandManager implements Component {
 	public api!: ComponentAPI;
 	public parent: PluginReference = Beehive;
 
-	@Inject() private beehive!: Beehive;
+	public readonly commands: Map<string, Command> = new Map();
+	public readonly aliases: Map<string, string> = new Map();
 
-	private readonly commands: Map<string, Command> = new Map();
-	private readonly aliases: Map<string, string> = new Map();
+	@Inject() private beehive!: Beehive;
 
 	public async onChildLoad(entity: Command) {
 		try {
