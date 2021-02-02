@@ -10,11 +10,14 @@
 	},
 	"license": "MIT",
 	"scripts": {
+		"prepublishOnly": "yarn rebuild",
+
 		"start": "node dist/index.js",
 		"dev": "yarn build && yarn start",
 		"lint": "eslint src --ext ts --fix",
 		"update": "yarn upgrade-interactive --latest",
 		"build": "tsc -b src",
+		"rebuild": "npx rimraf dist && yarn build",
 		"clean": "tsc -b src --clean",
 		"watch": "tsc -b src -w",
 		"test": "jest",
