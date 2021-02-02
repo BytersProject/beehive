@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/BytersProject/beehive/compare/v1.0.0...v1.1.0) (2021-02-02)
+
+
+### Features
+
+* make arguments and argument aliases public ([1effb94](https://github.com/BytersProject/beehive/commit/1effb94dcb4217a4c6851f67fee35a9ef9c6f4e9))
+* make commands and alieases public ([20c4e9a](https://github.com/BytersProject/beehive/commit/20c4e9a41b77a47b2334a07f364e54e3d8656bf3))
+
 ## 1.0.0 (2021-02-01)
 
 
